@@ -1,6 +1,7 @@
 import { ISong, SongsList } from "@/entities/song";
 import classes from "./PlaylistPage.module.scss";
 import songTest from "@/shared/assets/audio/Kid Cudi - Day 'N' Nite.mp3";
+import { PageTitle } from "@/shared/ui/PageTitle";
 
 const mockedSongsData: ISong[] = [
     {
@@ -64,8 +65,10 @@ const mockedSongsData: ISong[] = [
 export const PlaylistPage = () => {
     return (
         <div className={classes.PlaylistPage}>
-            <div className={classes.title}>Playlist title</div>
-            <SongsList songs={mockedSongsData} />
+            <div className="container">
+                <PageTitle title="Playlist title" />
+                <SongsList songs={mockedSongsData} />
+            </div>
         </div>
     );
 };

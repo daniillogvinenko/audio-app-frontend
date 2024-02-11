@@ -3,6 +3,7 @@ import classes from "./SearchPage.module.scss";
 import { useState } from "react";
 import { ISong, SongsList } from "@/entities/song";
 import songTest from "@/shared/assets/audio/Kid Cudi - Day 'N' Nite.mp3";
+import { PageTitle } from "@/shared/ui/PageTitle";
 
 const mockedSongsData: ISong[] = [
     {
@@ -68,9 +69,11 @@ export const SearchPage = () => {
 
     return (
         <div className={classes.SearchPage}>
-            <div className={classes.title}>Search</div>
-            <Input value={value} onChange={setValue} placeholder="Search" />
-            <SongsList songs={mockedSongsData} />
+            <div className="container">
+                <PageTitle title="Search" />
+                <Input value={value} onChange={setValue} placeholder="Search" full className={classes.input} />
+                <SongsList songs={mockedSongsData} />
+            </div>
         </div>
     );
 };
