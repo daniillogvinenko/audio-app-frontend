@@ -25,14 +25,17 @@ export const AppPlayer = (props: AppPlayerProps) => {
 
     const currentTime = useStore((state) => state.appPlayer.currentSongTime);
     const setCurrentTime = useStore((state) => state.appPlayerActions.setCurrentSongTime);
+    const setIsPlaying = useStore((state) => state.appPlayerActions.setIsPlaying);
 
     const audioRef = useRef<HTMLAudioElement>(null);
 
     const onPlayPause = () => {
         if (audioRef.current?.paused) {
             audioRef.current?.play();
+            setIsPlaying(true);
         } else {
             audioRef.current?.pause();
+            setIsPlaying(false);
         }
     };
 
@@ -75,7 +78,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
                     <img src={prevImg} alt="" />
                 </button>
                 <button onClick={onPlayPause}>
-                    {audioRef.current?.paused ? <img src={playImg} alt="" /> : <img src={pauseImg} alt="" />}
+                    {<img src={audioRef.current?.paused ? playImg : pauseImg} alt="" />}
                 </button>
                 <button>
                     <img src={nextImg} alt="" />
