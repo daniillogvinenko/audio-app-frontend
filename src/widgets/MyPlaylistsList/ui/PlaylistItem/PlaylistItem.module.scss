@@ -1,0 +1,18 @@
+.PlaylistItem {
+    display: flex;
+}
+
+.img {
+    width: 134px;
+    height: 134px;
+    border-radius: 10px;
+    box-shadow: 32px 12px 60px #10093d4f;
+    margin-right: 22px;
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 120%;
+}

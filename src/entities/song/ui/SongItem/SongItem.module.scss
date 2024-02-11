@@ -1,0 +1,30 @@
+.SongItem {
+    height: 72px;
+    border-radius: 8px;
+    background-color: white;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    gap: 12px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.author {
+    color: #828282;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.right {
+    color: #828282;
+}
