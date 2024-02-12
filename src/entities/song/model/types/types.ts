@@ -4,4 +4,5 @@ export interface ISong {
     author: string;
     duration: number;
     source: string;
+    img: string;
 }
