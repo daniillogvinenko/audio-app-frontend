@@ -10,6 +10,7 @@ const mockedSongsData: ISong[] = [
         title: "All eyez on me",
         source: songTest,
         duration: 215,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "2",
@@ -17,6 +18,7 @@ const mockedSongsData: ISong[] = [
         title: "Bop it",
         source: songTest,
         duration: 165,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "3",
@@ -24,6 +26,7 @@ const mockedSongsData: ISong[] = [
         title: "Brucky",
         source: songTest,
         duration: 268,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "4",
@@ -31,6 +34,7 @@ const mockedSongsData: ISong[] = [
         title: "Yet",
         source: songTest,
         duration: 225,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "5",
@@ -38,6 +42,7 @@ const mockedSongsData: ISong[] = [
         title: "All eyez on me",
         source: songTest,
         duration: 307,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "6",
@@ -45,6 +50,7 @@ const mockedSongsData: ISong[] = [
         title: "Bop it",
         source: songTest,
         duration: 203,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "7",
@@ -52,6 +58,7 @@ const mockedSongsData: ISong[] = [
         title: "Brucky",
         source: songTest,
         duration: 225,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
     {
         id: "8",
@@ -59,6 +66,7 @@ const mockedSongsData: ISong[] = [
         title: "Yet",
         source: songTest,
         duration: 186,
+        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
     },
 ];
 
