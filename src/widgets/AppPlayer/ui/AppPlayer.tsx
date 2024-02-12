@@ -34,7 +34,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/songs/${1}`, {
+            .get(`${__API__}/audio/${1}`, {
                 headers: {
                     Authorization:
                         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzc0MzgxOCwiZXhwIjoxNzA3Nzc5ODE4fQ.5PMZEfCpq2Ap9dvhYGTqHdoWYQNkUbWdET7_ewV6DcU",
@@ -51,7 +51,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
 
     const onNext = () => {
         axios
-            .get(`http://localhost:8000/songs/${2}`, {
+            .get(`${__API__}/audio/${2}`, {
                 headers: {
                     Authorization:
                         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzc0MzgxOCwiZXhwIjoxNzA3Nzc5ODE4fQ.5PMZEfCpq2Ap9dvhYGTqHdoWYQNkUbWdET7_ewV6DcU",
