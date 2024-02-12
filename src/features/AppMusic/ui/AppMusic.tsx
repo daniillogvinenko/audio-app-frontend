@@ -11,7 +11,7 @@ export const AppMusic = () => {
     const externalNewSongTime = useStore((state) => state.appMusic.externalNewSongTime);
     const setExternalNewSongTime = useStore((state) => state.appMusicActions.setExternalNewSongTime);
 
-    // этот useEffect реагирует на изменения isPlaying и взаимодействует с тегом <audio>
+    // реагирует на изменения isPlaying и взаимодействует с тегом <audio>
     useEffect(() => {
         if (isPlaying) {
             audioRef.current?.play();
@@ -20,6 +20,7 @@ export const AppMusic = () => {
         }
     }, [isPlaying]);
 
+    // реагирует на изменения externalNewSongTime, что говорит о том, что надо изменить текущее время песни через audioRef
     useEffect(() => {
         if (externalNewSongTime !== null) {
             setCurrentSongTime(externalNewSongTime);
@@ -28,8 +29,13 @@ export const AppMusic = () => {
             }
             setExternalNewSongTime(null);
         }
-    }, [externalNewSongTime]);
+    }, [externalNewSongTime, setCurrentSongTime, setExternalNewSongTime]);
 
+    useEffect(() => {
+        audioRef.current?.load();
+    }, [currentSong.id]);
+
+    // устанавливает интервал, который проверять текущее время песни через audioRef и устанавливать его в стейт
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSongTime(audioRef.current?.currentTime || 0);
@@ -40,9 +46,5 @@ export const AppMusic = () => {
         };
     }, []);
 
-    return (
-        <audio onEnded={() => setIsPlaying(false)} ref={audioRef}>
-            <source src={currentSong.source} />
-        </audio>
-    );
+    return <audio onEnded={() => setIsPlaying(false)} ref={audioRef} src={`${__API__}/songs/${currentSong.source}`} />;
 };

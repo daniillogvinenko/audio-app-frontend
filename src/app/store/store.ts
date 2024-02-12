@@ -1,6 +1,5 @@
 import { ISong } from "@/entities/song";
 import { create } from "zustand";
-import testSong from "@/shared/assets/audio/Kid Cudi - Day 'N' Nite.mp3";
 
 interface AppState {
     loginPage: {
@@ -44,12 +43,12 @@ export const useStore = create<AppState & Action>()((set) => ({
     // --------
     appMusic: {
         currentSong: {
-            title: "Day 'N' Nite",
-            author: "Kid Cudi",
-            source: testSong,
-            duration: 222,
-            id: "1",
-            img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
+            title: "placeholder",
+            author: "placeholder",
+            source: "placeholder",
+            duration: 100,
+            id: "placeholder",
+            img: "placeholder",
         },
         isPlaying: false,
         nextSongId: "3",
