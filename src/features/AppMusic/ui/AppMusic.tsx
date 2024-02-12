@@ -46,5 +46,5 @@ export const AppMusic = () => {
         };
     }, []);
 
-    return <audio onEnded={() => setIsPlaying(false)} ref={audioRef} src={`${__API__}/songs/${currentSong.source}`} />;
+    return <audio onEnded={() => setIsPlaying(false)} ref={audioRef} src={`${__API__}/audio/${currentSong.source}`} />;
 };
