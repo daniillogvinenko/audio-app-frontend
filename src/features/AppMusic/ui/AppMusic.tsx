@@ -15,6 +15,7 @@ export const AppMusic = () => {
 
     // реагирует на изменения isPlaying и взаимодействует с тегом <audio>
     useEffect(() => {
+        console.log(isPlaying);
         if (isPlaying) {
             audioRef.current?.play();
         } else {

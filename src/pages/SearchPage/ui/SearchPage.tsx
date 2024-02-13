@@ -26,6 +26,8 @@ export const SearchPage = () => {
     // загрузка песен с сервера
     useEffect(() => {
         debouncedAxios();
+
+        return () => setSearchPageSongs([]);
     }, [value]);
 
     return (

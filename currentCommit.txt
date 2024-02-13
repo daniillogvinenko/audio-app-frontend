@@ -1,0 +1,2 @@
+- clear searchPage songs after unmount
+- songItem add onClick
