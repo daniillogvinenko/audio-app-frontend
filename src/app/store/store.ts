@@ -14,6 +14,10 @@ interface AppState {
         currentSongTime: number;
         externalNewSongTime: number | null;
     };
+    searchPage: {
+        songs: ISong[];
+        isLoading: boolean;
+    };
 }
 
 interface Action {
@@ -28,6 +32,10 @@ interface Action {
         setPrevSongId: (value: string) => void;
         setCurrentSongTime: (value: number) => void;
         setExternalNewSongTime: (value: number | null) => void;
+    };
+    searchPageActions: {
+        setSearchPageSongs: (value: ISong[]) => void;
+        setSearchPageIsLoading: (value: boolean) => void;
     };
 }
 
@@ -64,5 +72,14 @@ export const useStore = create<AppState & Action>()((set) => ({
         setCurrentSongTime: (value) => set((state) => ({ appMusic: { ...state.appMusic, currentSongTime: value } })),
         setExternalNewSongTime: (value) =>
             set((state) => ({ appMusic: { ...state.appMusic, externalNewSongTime: value } })),
+    },
+    // --------
+    searchPage: {
+        isLoading: false,
+        songs: [],
+    },
+    searchPageActions: {
+        setSearchPageSongs: (value) => set((state) => ({ searchPage: { ...state.searchPage, songs: value } })),
+        setSearchPageIsLoading: (value) => set((state) => ({ searchPage: { ...state.searchPage, isLoading: value } })),
     },
 }));

@@ -1,85 +1,39 @@
 import { Input } from "@/shared/ui/Input";
 import classes from "./SearchPage.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ISong, SongsList } from "@/entities/song";
 import { PageTitle } from "@/shared/ui/PageTitle";
-
-const mockedSongsData: ISong[] = [
-    {
-        id: "1",
-        author: "2pac",
-        title: "All eyez on me",
-        source: "",
-        duration: 215,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "2",
-        author: "Fivio Foreign",
-        title: "Bop it",
-        source: "",
-        duration: 165,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "3",
-        author: "SR",
-        title: "Brucky",
-        source: "",
-        duration: 268,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "4",
-        author: "Gucci Mane",
-        title: "Yet",
-        source: "",
-        duration: 225,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "5",
-        author: "2pac",
-        title: "All eyez on me",
-        source: "",
-        duration: 307,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "6",
-        author: "Fivio Foreign",
-        title: "Bop it",
-        source: "",
-        duration: 203,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "7",
-        author: "SR",
-        title: "Brucky",
-        source: "",
-        duration: 225,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-    {
-        id: "8",
-        author: "Gucci Mane",
-        title: "Yet",
-        source: "",
-        duration: 186,
-        img: "https://media.architecturaldigest.com/photos/5890e88033bd1de9129eab0a/1:1/w_870,h_870,c_limit/Artist-Designed%20Album%20Covers%202.jpg",
-    },
-];
+import { useStore } from "@/app/store/store";
+import axios from "axios";
+import { useDebounce } from "@/shared/lib/hooks/useDebounce/useDebounce";
 
 export const SearchPage = () => {
     const [value, setValue] = useState("");
+
+    const songs = useStore((state) => state.searchPage.songs);
+    const setSearchPageSongs = useStore((state) => state.searchPageActions.setSearchPageSongs);
+    const isLoading = useStore((state) => state.searchPage.isLoading);
+    const setIsLoading = useStore((state) => state.searchPageActions.setSearchPageIsLoading);
+
+    const debouncedAxios = useDebounce(() => {
+        setIsLoading(true);
+        axios.get<ISong[]>(`${__API__}/songs?q=${value}`, { headers: { Authorization: __JWT__ } }).then((response) => {
+            setSearchPageSongs(response.data);
+            setIsLoading(false);
+        });
+    }, 1000);
+
+    // загрузка песен с сервера
+    useEffect(() => {
+        debouncedAxios();
+    }, [value]);
 
     return (
         <div className={classes.SearchPage}>
             <div className="container">
                 <PageTitle title="Search" />
                 <Input value={value} onChange={setValue} placeholder="Search" full className={classes.input} />
-                <SongsList songs={mockedSongsData} />
+                {isLoading ? <div>Loading...</div> : <SongsList songs={songs} />}
             </div>
         </div>
     );

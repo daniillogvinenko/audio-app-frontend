@@ -46,8 +46,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
         axios
             .get(`${__API__}/songs/${n + 1}`, {
                 headers: {
-                    Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzgzNTQ4MiwiZXhwIjoxNzA3ODcxNDgyfQ.dxpXQ_WWTlyX6O5QtiSE0rMdRqAf8wgdIv-feqRurY4",
+                    Authorization: __JWT__,
                 },
             })
             .then((response) => setCurrentSong(response.data));
@@ -60,8 +59,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
             axios
                 .get(`${__API__}/songs/${n - 1}`, {
                     headers: {
-                        Authorization:
-                            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzgzNTQ4MiwiZXhwIjoxNzA3ODcxNDgyfQ.dxpXQ_WWTlyX6O5QtiSE0rMdRqAf8wgdIv-feqRurY4",
+                        Authorization: __JWT__,
                     },
                 })
                 .then((response) => setCurrentSong(response.data));

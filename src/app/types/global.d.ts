@@ -7,3 +7,4 @@ declare module "*.scss" {
 }
 
 declare const __API__: string;
+declare const __JWT__: string;
