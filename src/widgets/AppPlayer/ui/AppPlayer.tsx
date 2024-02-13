@@ -6,7 +6,7 @@ import prevImg from "@/shared/assets/images/Playback.png";
 import nextImg from "@/shared/assets/images/Next.png";
 import playImg from "@/shared/assets/images/Button_Play.png";
 import pauseImg from "@/shared/assets/images/Button_Pause.png";
-import { useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 interface AppPlayerProps {
@@ -32,16 +32,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
         }
     };
 
-    useEffect(() => {
-        axios
-            .get(`${__API__}/songs/${1}`, {
-                headers: {
-                    Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzc0MzgxOCwiZXhwIjoxNzA3Nzc5ODE4fQ.5PMZEfCpq2Ap9dvhYGTqHdoWYQNkUbWdET7_ewV6DcU",
-                },
-            })
-            .then((response) => setCurrentSong(response.data));
-    }, []);
+    const [n, SetN] = useState(1);
 
     // дает компоненту AppMusic знать о том, что надо перемотать песню на установленное значение
     const onChange = (value: number) => {
@@ -50,17 +41,32 @@ export const AppPlayer = (props: AppPlayerProps) => {
     };
 
     const onNext = () => {
+        SetN(n + 1);
+        setIsPlaying(false);
         axios
-            .get(`${__API__}/songs/${2}`, {
+            .get(`${__API__}/songs/${n + 1}`, {
                 headers: {
                     Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzc0MzgxOCwiZXhwIjoxNzA3Nzc5ODE4fQ.5PMZEfCpq2Ap9dvhYGTqHdoWYQNkUbWdET7_ewV6DcU",
+                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzgzNTQ4MiwiZXhwIjoxNzA3ODcxNDgyfQ.dxpXQ_WWTlyX6O5QtiSE0rMdRqAf8wgdIv-feqRurY4",
                 },
             })
             .then((response) => setCurrentSong(response.data));
     };
 
-    console.log(currentSong.img);
+    const onPrev = () => {
+        if (n >= 1) {
+            SetN(n - 1);
+            setIsPlaying(false);
+            axios
+                .get(`${__API__}/songs/${n - 1}`, {
+                    headers: {
+                        Authorization:
+                            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzgzNTQ4MiwiZXhwIjoxNzA3ODcxNDgyfQ.dxpXQ_WWTlyX6O5QtiSE0rMdRqAf8wgdIv-feqRurY4",
+                    },
+                })
+                .then((response) => setCurrentSong(response.data));
+        }
+    };
 
     return (
         <div className={classNames(classes.AppPlayer, {}, [className])}>
@@ -76,7 +82,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
             <div className={classes.songTitle}>{currentSong.title}</div>
             <div className={classes.songAuthor}>{currentSong.author}</div>
             <div className={classes.controls}>
-                <button>
+                <button onClick={onPrev}>
                     <img src={prevImg} alt="" />
                 </button>
                 <button onClick={onPlayPause}>{<img src={isPlaying ? pauseImg : playImg} alt="" />}</button>
