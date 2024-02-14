@@ -1,3 +1,4 @@
+import { IPlaylist } from "@/entities/playlist";
 import { ISong } from "@/entities/song";
 import { create } from "zustand";
 
@@ -19,6 +20,10 @@ interface AppState {
         songs: ISong[];
         isLoading: boolean;
     };
+    MyMusicPage: {
+        playlists: IPlaylist[];
+        isLoading: boolean;
+    };
 }
 
 interface Action {
@@ -38,6 +43,10 @@ interface Action {
     searchPageActions: {
         setSearchPageSongs: (value: ISong[]) => void;
         setSearchPageIsLoading: (value: boolean) => void;
+    };
+    MyMusicPageActions: {
+        setMyMusicPagePlaylists: (value: IPlaylist[]) => void;
+        setIsLoading: (value: boolean) => void;
     };
 }
 
@@ -85,5 +94,15 @@ export const useStore = create<AppState & Action>()((set) => ({
     searchPageActions: {
         setSearchPageSongs: (value) => set((state) => ({ searchPage: { ...state.searchPage, songs: value } })),
         setSearchPageIsLoading: (value) => set((state) => ({ searchPage: { ...state.searchPage, isLoading: value } })),
+    },
+    // ------------
+    MyMusicPage: {
+        isLoading: false,
+        playlists: [],
+    },
+    MyMusicPageActions: {
+        setIsLoading: (value) => set((state) => ({ MyMusicPage: { ...state.MyMusicPage, isLoading: value } })),
+        setMyMusicPagePlaylists: (value) =>
+            set((state) => ({ MyMusicPage: { ...state.MyMusicPage, playlists: value } })),
     },
 }));
