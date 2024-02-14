@@ -47,7 +47,6 @@ export const AppPlayer = (props: AppPlayerProps) => {
 
     const onNext = () => {
         SetN(n + 1);
-        setIsPlaying(false);
         setIsLoading(true);
         axios
             .get(`${__API__}/songs/${n + 1}`, {
@@ -58,14 +57,12 @@ export const AppPlayer = (props: AppPlayerProps) => {
             .then((response) => {
                 setCurrentSong(response.data);
                 setIsLoading(false);
-                setIsPlaying(true);
             });
     };
 
     const onPrev = () => {
         if (n >= 1) {
             SetN(n - 1);
-            setIsPlaying(false);
             setIsLoading(true);
             axios
                 .get(`${__API__}/songs/${n - 1}`, {
@@ -76,7 +73,6 @@ export const AppPlayer = (props: AppPlayerProps) => {
                 .then((response) => {
                     setCurrentSong(response.data);
                     setIsLoading(false);
-                    setIsPlaying(true);
                 });
         }
     };

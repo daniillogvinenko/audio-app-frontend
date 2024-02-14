@@ -24,6 +24,10 @@ interface AppState {
         playlists: IPlaylist[];
         isLoading: boolean;
     };
+    PlaylistPage: {
+        songs: ISong[];
+        isLoading: boolean;
+    };
 }
 
 interface Action {
@@ -46,6 +50,10 @@ interface Action {
     };
     MyMusicPageActions: {
         setMyMusicPagePlaylists: (value: IPlaylist[]) => void;
+        setIsLoading: (value: boolean) => void;
+    };
+    PlaylistPageActions: {
+        setSongs: (value: ISong[]) => void;
         setIsLoading: (value: boolean) => void;
     };
 }
@@ -104,5 +112,14 @@ export const useStore = create<AppState & Action>()((set) => ({
         setIsLoading: (value) => set((state) => ({ MyMusicPage: { ...state.MyMusicPage, isLoading: value } })),
         setMyMusicPagePlaylists: (value) =>
             set((state) => ({ MyMusicPage: { ...state.MyMusicPage, playlists: value } })),
+    },
+    // -------------
+    PlaylistPage: {
+        isLoading: false,
+        songs: [],
+    },
+    PlaylistPageActions: {
+        setIsLoading: (value) => set((state) => ({ PlaylistPage: { ...state.PlaylistPage, isLoading: value } })),
+        setSongs: (value) => set((state) => ({ PlaylistPage: { ...state.PlaylistPage, songs: value } })),
     },
 }));

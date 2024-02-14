@@ -6,9 +6,10 @@ import { PageTitle } from "@/shared/ui/PageTitle";
 import { useStore } from "@/app/store/store";
 import axios from "axios";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce/useDebounce";
+import { Skeleton } from "@/shared/ui/Skeleton";
 
 export const SearchPage = () => {
-    const [value, setValue] = useState("");
+    const [inputValue, setInputValue] = useState("");
 
     const songs = useStore((state) => state.searchPage.songs);
     const setSearchPageSongs = useStore((state) => state.searchPageActions.setSearchPageSongs);
@@ -17,10 +18,12 @@ export const SearchPage = () => {
 
     const debouncedAxios = useDebounce(() => {
         setIsLoading(true);
-        axios.get<ISong[]>(`${__API__}/songs?q=${value}`, { headers: { Authorization: __JWT__ } }).then((response) => {
-            setSearchPageSongs(response.data);
-            setIsLoading(false);
-        });
+        axios
+            .get<ISong[]>(`${__API__}/songs?q=${inputValue}`, { headers: { Authorization: __JWT__ } })
+            .then((response) => {
+                setSearchPageSongs(response.data);
+                setIsLoading(false);
+            });
     }, 1000);
 
     // загрузка песен с сервера
@@ -28,14 +31,30 @@ export const SearchPage = () => {
         debouncedAxios();
 
         return () => setSearchPageSongs([]);
-    }, [value]);
+    }, [inputValue]);
+
+    const skeleton = (
+        <>
+            <Skeleton height={72} border="8px" className={classes.skeleton} />
+            <Skeleton height={72} border="8px" className={classes.skeleton} />
+            <Skeleton height={72} border="8px" className={classes.skeleton} />
+            <Skeleton height={72} border="8px" className={classes.skeleton} />
+        </>
+    );
 
     return (
         <div className={classes.SearchPage}>
             <div className="container">
                 <PageTitle title="Search" />
-                <Input value={value} onChange={setValue} placeholder="Search" full className={classes.input} />
-                {isLoading ? <div>Loading...</div> : <SongsList songs={songs} />}
+                <Input
+                    value={inputValue}
+                    onChange={setInputValue}
+                    placeholder="Search"
+                    full
+                    className={classes.input}
+                />
+                {/* если строка поиска пустая, то ничего не будет отображено */}
+                {isLoading ? skeleton : <SongsList songs={inputValue ? songs : []} />}
             </div>
         </div>
     );
