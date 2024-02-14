@@ -1,26 +1,21 @@
-<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_di_40_122)">
-<circle cx="80" cy="80" r="40" fill="url(#paint0_linear_40_122)"/>
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_i_71_120)">
+<circle cx="40" cy="40" r="40" fill="url(#paint0_linear_71_120)"/>
 </g>
-<path d="M76.6667 66.6667H70V93.3334H76.6667V66.6667Z" fill="white"/>
-<path d="M90.0002 66.6667H83.3335V93.3334H90.0002V66.6667Z" fill="white"/>
+<path d="M36.6667 27H30V53.6667H36.6667V27Z" fill="white"/>
+<path d="M50.0002 27H43.3335V53.6667H50.0002V27Z" fill="white"/>
 <defs>
-<filter id="filter0_di_40_122" x="0" y="0" width="160" height="160" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_i_71_120" x="0" y="0" width="84" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="20"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.360784 0 0 0 0 0.258824 0 0 0 0 1 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_40_122"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_40_122" result="shape"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dx="4" dy="12"/>
 <feGaussianBlur stdDeviation="20"/>
 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0.696179 0 0 0 0 0.653698 0 0 0 0 0.9625 0 0 0 0.5 0"/>
-<feBlend mode="normal" in2="shape" result="effect2_innerShadow_40_122"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_71_120"/>
 </filter>
-<linearGradient id="paint0_linear_40_122" x1="104" y1="44.5" x2="58" y2="114" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_71_120" x1="64" y1="4.5" x2="18" y2="74" gradientUnits="userSpaceOnUse">
 <stop stop-color="#8673FD"/>
 <stop offset="1" stop-color="#5C42FF"/>
 </linearGradient>
