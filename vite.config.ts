@@ -10,7 +10,7 @@ export default defineConfig({
     define: {
         __API__: JSON.stringify("https://audio-app-backend.vercel.app"),
         __JWT__: JSON.stringify(
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzgzNTQ4MiwiZXhwIjoxNzA3ODcxNDgyfQ.dxpXQ_WWTlyX6O5QtiSE0rMdRqAf8wgdIv-feqRurY4"
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzNjdiZDIyLWU1NDgtNDFmNC05YTcxLTg0ZjI5YjU0ZjA5OSIsImlhdCI6MTcwNzg5NTYzNSwiZXhwIjoxNzA3OTMxNjM1fQ.9CM-PCgFu6elOYiASmE7jJjD5-k-RtBfF3KOBfgJyPs"
         ),
     },
 });

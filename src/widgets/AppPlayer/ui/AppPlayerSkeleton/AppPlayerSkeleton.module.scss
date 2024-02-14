@@ -1,0 +1,31 @@
+.albumCover {
+    border-radius: 10px;
+    box-shadow: 32px 12px 60px #10093d4f;
+    display: block;
+    margin: 0 auto;
+}
+
+.scale {
+    margin-top: 45px;
+}
+
+.songTitle {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 16px;
+}
+
+.songAuthor {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #828282;
+    margin-top: 8px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

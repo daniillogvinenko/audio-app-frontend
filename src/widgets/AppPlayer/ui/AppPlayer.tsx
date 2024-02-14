@@ -8,6 +8,9 @@ import playImg from "@/shared/assets/images/Button_Play.png";
 import pauseImg from "@/shared/assets/images/Button_Pause.png";
 import { useState } from "react";
 import axios from "axios";
+import { AppImage } from "@/shared/ui/AppImage";
+import { AppPlayerSkeleton } from "./AppPlayerSkeleton/AppPlayerSkeleton";
+import { Skeleton } from "@/shared/ui/Skeleton";
 
 interface AppPlayerProps {
     className?: string;
@@ -23,6 +26,8 @@ export const AppPlayer = (props: AppPlayerProps) => {
     const currentSong = useStore((state) => state.appMusic.currentSong);
     const setCurrentSong = useStore((state) => state.appMusicActions.setCurrentSong);
     const setExternalNewSongTime = useStore((state) => state.appMusicActions.setExternalNewSongTime);
+    const setIsLoading = useStore((state) => state.appMusicActions.setIsLoading);
+    const isLoading = useStore((state) => state.appMusic.isLoading);
 
     const onPlayPause = () => {
         if (isPlaying) {
@@ -43,42 +48,62 @@ export const AppPlayer = (props: AppPlayerProps) => {
     const onNext = () => {
         SetN(n + 1);
         setIsPlaying(false);
+        setIsLoading(true);
         axios
             .get(`${__API__}/songs/${n + 1}`, {
                 headers: {
                     Authorization: __JWT__,
                 },
             })
-            .then((response) => setCurrentSong(response.data));
+            .then((response) => {
+                setCurrentSong(response.data);
+                setIsLoading(false);
+                setIsPlaying(true);
+            });
     };
 
     const onPrev = () => {
         if (n >= 1) {
             SetN(n - 1);
             setIsPlaying(false);
+            setIsLoading(true);
             axios
                 .get(`${__API__}/songs/${n - 1}`, {
                     headers: {
                         Authorization: __JWT__,
                     },
                 })
-                .then((response) => setCurrentSong(response.data));
+                .then((response) => {
+                    setCurrentSong(response.data);
+                    setIsLoading(false);
+                    setIsPlaying(true);
+                });
         }
     };
 
     return (
         <div className={classNames(classes.AppPlayer, {}, [className])}>
-            <img src={`${__API__}/images/${currentSong.img}`} className={classes.albumCover} />
+            {isLoading ? (
+                <AppPlayerSkeleton />
+            ) : (
+                <>
+                    <AppImage
+                        src={`${__API__}/images/${currentSong.img}`}
+                        className={classes.albumCover}
+                        fallback={<Skeleton className={classes.albumCover} height={243} width={243} />}
+                    />
 
-            <SongScale
-                onChange={onChange}
-                value={(currentTime / currentSong.duration) * 100}
-                currentTime={currentSongTime}
-                duration={currentSong.duration}
-                className={classes.scale}
-            />
-            <div className={classes.songTitle}>{currentSong.title}</div>
-            <div className={classes.songAuthor}>{currentSong.author}</div>
+                    <SongScale
+                        onChange={onChange}
+                        value={(currentTime / currentSong.duration) * 100}
+                        currentTime={currentSongTime}
+                        duration={currentSong.duration}
+                        className={classes.scale}
+                    />
+                    <div className={classes.songTitle}>{currentSong.title}</div>
+                    <div className={classes.songAuthor}>{currentSong.author}</div>
+                </>
+            )}
             <div className={classes.controls}>
                 <button onClick={onPrev}>
                     <img src={prevImg} alt="" />
