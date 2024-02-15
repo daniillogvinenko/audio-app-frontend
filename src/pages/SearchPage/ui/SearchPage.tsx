@@ -42,6 +42,10 @@ export const SearchPage = () => {
         </>
     );
 
+    const handleOnSongClick = (value: ISong) => {
+        console.log(value);
+    };
+
     return (
         <div className={classes.SearchPage}>
             <div className="container">
@@ -54,7 +58,7 @@ export const SearchPage = () => {
                     className={classes.input}
                 />
                 {/* если строка поиска пустая, то ничего не будет отображено */}
-                {isLoading ? skeleton : <SongsList songs={inputValue ? songs : []} />}
+                {isLoading ? skeleton : <SongsList onClick={handleOnSongClick} songs={inputValue ? songs : []} />}
             </div>
         </div>
     );

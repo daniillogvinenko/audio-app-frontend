@@ -10,6 +10,7 @@ import axios from "axios";
 import { AppImage } from "@/shared/ui/AppImage";
 import { AppPlayerSkeleton } from "./AppPlayerSkeleton/AppPlayerSkeleton";
 import { Skeleton } from "@/shared/ui/Skeleton";
+import { ToggleRandom } from "@/features/ToggleRandom";
 
 interface AppPlayerProps {
     className?: string;
@@ -49,7 +50,8 @@ export const AppPlayer = (props: AppPlayerProps) => {
     };
 
     const onNext = () => {
-        if (!isLoading) {
+        // кнопка не будет работать, если идет загрузка песни или следующих песен нету
+        if (!isLoading && nextQueue.length) {
             setIsLoading(true);
             axios
                 .get(`${__API__}/songs/${nextQueue[0]}`, {
@@ -68,7 +70,8 @@ export const AppPlayer = (props: AppPlayerProps) => {
     };
 
     const onPrev = () => {
-        if (!isLoading) {
+        // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
+        if (!isLoading && prevQueue.length) {
             setIsLoading(true);
 
             axios
@@ -110,14 +113,17 @@ export const AppPlayer = (props: AppPlayerProps) => {
                 </>
             )}
             <div className={classes.controls}>
-                <button disabled={isLoading} onClick={onPrev}>
+                <button disabled={isLoading || !prevQueue.length} onClick={onPrev}>
                     <img src={prevImg} alt="" />
                 </button>
-                <button onClick={onPlayPause}>{<img src={isPlaying ? pauseImg : playImg} alt="" />}</button>
-                <button disabled={isLoading} onClick={onNext}>
+                <button disabled={isLoading} onClick={onPlayPause}>
+                    {<img src={isPlaying ? pauseImg : playImg} alt="" />}
+                </button>
+                <button disabled={isLoading || !nextQueue.length} onClick={onNext}>
                     <img src={nextImg} alt="" />
                 </button>
             </div>
+            <ToggleRandom disabled={isLoading} />
         </div>
     );
 };

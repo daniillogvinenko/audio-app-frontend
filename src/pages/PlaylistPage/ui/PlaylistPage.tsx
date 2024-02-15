@@ -42,11 +42,15 @@ export const PlaylistPage = () => {
         </>
     );
 
+    const handleOnSongClick = (value: ISong) => {
+        console.log(value);
+    };
+
     return (
         <div className={classes.PlaylistPage}>
             <div className="container">
                 <PageTitle title={title} />
-                {isLoading ? skeleton : <SongsList songs={songs} />}
+                {isLoading ? skeleton : <SongsList onClick={handleOnSongClick} songs={songs} />}
             </div>
         </div>
     );
