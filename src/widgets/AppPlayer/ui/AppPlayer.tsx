@@ -6,7 +6,6 @@ import prevImg from "@/shared/assets/images/Playback.svg";
 import nextImg from "@/shared/assets/images/Next.svg";
 import playImg from "@/shared/assets/images/Button_Play.svg";
 import pauseImg from "@/shared/assets/images/Button_Pause.svg";
-import { useState } from "react";
 import axios from "axios";
 import { AppImage } from "@/shared/ui/AppImage";
 import { AppPlayerSkeleton } from "./AppPlayerSkeleton/AppPlayerSkeleton";
@@ -28,16 +27,20 @@ export const AppPlayer = (props: AppPlayerProps) => {
     const setExternalNewSongTime = useStore((state) => state.appMusicActions.setExternalNewSongTime);
     const setIsLoading = useStore((state) => state.appMusicActions.setIsLoading);
     const isLoading = useStore((state) => state.appMusic.isLoading);
+    const nextQueue = useStore((state) => state.appMusic.nextQueue);
+    const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
+    const prevQueue = useStore((state) => state.appMusic.prevQueue);
+    const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
 
     const onPlayPause = () => {
-        if (isPlaying) {
-            setIsPlaying(false);
-        } else {
-            setIsPlaying(true);
+        if (!isLoading) {
+            if (isPlaying) {
+                setIsPlaying(false);
+            } else {
+                setIsPlaying(true);
+            }
         }
     };
-
-    const [n, SetN] = useState(1);
 
     // дает компоненту AppMusic знать о том, что надо перемотать песню на установленное значение
     const onChange = (value: number) => {
@@ -46,26 +49,10 @@ export const AppPlayer = (props: AppPlayerProps) => {
     };
 
     const onNext = () => {
-        SetN(n + 1);
-        setIsLoading(true);
-        axios
-            .get(`${__API__}/songs/${n + 1}`, {
-                headers: {
-                    Authorization: __JWT__,
-                },
-            })
-            .then((response) => {
-                setCurrentSong(response.data);
-                setIsLoading(false);
-            });
-    };
-
-    const onPrev = () => {
-        if (n >= 1) {
-            SetN(n - 1);
+        if (!isLoading) {
             setIsLoading(true);
             axios
-                .get(`${__API__}/songs/${n - 1}`, {
+                .get(`${__API__}/songs/${nextQueue[0]}`, {
                     headers: {
                         Authorization: __JWT__,
                     },
@@ -73,6 +60,28 @@ export const AppPlayer = (props: AppPlayerProps) => {
                 .then((response) => {
                     setCurrentSong(response.data);
                     setIsLoading(false);
+                    // удаляем первый элемент из массива nextQueue и добавляем id текущей песни в конец массива prevQueue
+                    setNextQueue(nextQueue.slice(1));
+                    setPrevQueue([...prevQueue, currentSong.id]);
+                });
+        }
+    };
+
+    const onPrev = () => {
+        if (!isLoading) {
+            setIsLoading(true);
+
+            axios
+                .get(`${__API__}/songs/${prevQueue[prevQueue.length - 1]}`, {
+                    headers: {
+                        Authorization: __JWT__,
+                    },
+                })
+                .then((response) => {
+                    setCurrentSong(response.data);
+                    setIsLoading(false);
+                    setNextQueue([currentSong.id, ...nextQueue]);
+                    setPrevQueue(prevQueue.slice(0, -1));
                 });
         }
     };
@@ -101,11 +110,11 @@ export const AppPlayer = (props: AppPlayerProps) => {
                 </>
             )}
             <div className={classes.controls}>
-                <button onClick={onPrev}>
+                <button disabled={isLoading} onClick={onPrev}>
                     <img src={prevImg} alt="" />
                 </button>
                 <button onClick={onPlayPause}>{<img src={isPlaying ? pauseImg : playImg} alt="" />}</button>
-                <button onClick={onNext}>
+                <button disabled={isLoading} onClick={onNext}>
                     <img src={nextImg} alt="" />
                 </button>
             </div>

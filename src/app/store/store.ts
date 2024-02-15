@@ -10,11 +10,11 @@ interface AppState {
     appMusic: {
         currentSong: ISong;
         isPlaying: boolean;
-        nextSongId: string;
-        prevSongId: string;
         currentSongTime: number;
         externalNewSongTime: number | null;
         isLoading: boolean;
+        nextQueue: string[];
+        prevQueue: string[];
     };
     searchPage: {
         songs: ISong[];
@@ -27,6 +27,7 @@ interface AppState {
     PlaylistPage: {
         songs: ISong[];
         isLoading: boolean;
+        playlistTitle: string;
     };
 }
 
@@ -38,11 +39,11 @@ interface Action {
     appMusicActions: {
         setCurrentSong: (value: ISong) => void;
         setIsPlaying: (value: boolean) => void;
-        setNextSongId: (value: string) => void;
-        setPrevSongId: (value: string) => void;
         setCurrentSongTime: (value: number) => void;
         setExternalNewSongTime: (value: number | null) => void;
         setIsLoading: (value: boolean) => void;
+        setNextQueue: (value: string[]) => void;
+        setPrevQueue: (value: string[]) => void;
     };
     searchPageActions: {
         setSearchPageSongs: (value: ISong[]) => void;
@@ -55,6 +56,7 @@ interface Action {
     PlaylistPageActions: {
         setSongs: (value: ISong[]) => void;
         setIsLoading: (value: boolean) => void;
+        setPlaylistTitle: (value: string) => void;
     };
 }
 
@@ -78,21 +80,21 @@ export const useStore = create<AppState & Action>()((set) => ({
             img: "placeholder",
         },
         isPlaying: false,
-        nextSongId: "3",
-        prevSongId: "1",
         currentSongTime: 60,
         externalNewSongTime: null,
         isLoading: false,
+        nextQueue: ["4", "1", "3", "4"],
+        prevQueue: [],
     },
     appMusicActions: {
         setCurrentSong: (value) => set((state) => ({ appMusic: { ...state.appMusic, currentSong: value } })),
         setIsPlaying: (value) => set((state) => ({ appMusic: { ...state.appMusic, isPlaying: value } })),
-        setNextSongId: (value) => set((state) => ({ appMusic: { ...state.appMusic, nextSongId: value } })),
-        setPrevSongId: (value) => set((state) => ({ appMusic: { ...state.appMusic, prevSongId: value } })),
         setCurrentSongTime: (value) => set((state) => ({ appMusic: { ...state.appMusic, currentSongTime: value } })),
         setExternalNewSongTime: (value) =>
             set((state) => ({ appMusic: { ...state.appMusic, externalNewSongTime: value } })),
         setIsLoading: (value) => set((state) => ({ appMusic: { ...state.appMusic, isLoading: value } })),
+        setNextQueue: (value: string[]) => set((state) => ({ appMusic: { ...state.appMusic, nextQueue: value } })),
+        setPrevQueue: (value: string[]) => set((state) => ({ appMusic: { ...state.appMusic, prevQueue: value } })),
     },
     // --------
     searchPage: {
@@ -117,9 +119,12 @@ export const useStore = create<AppState & Action>()((set) => ({
     PlaylistPage: {
         isLoading: false,
         songs: [],
+        playlistTitle: "",
     },
     PlaylistPageActions: {
         setIsLoading: (value) => set((state) => ({ PlaylistPage: { ...state.PlaylistPage, isLoading: value } })),
         setSongs: (value) => set((state) => ({ PlaylistPage: { ...state.PlaylistPage, songs: value } })),
+        setPlaylistTitle: (value: string) =>
+            set((state) => ({ PlaylistPage: { ...state.PlaylistPage, playlistTitle: value } })),
     },
 }));

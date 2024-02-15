@@ -7,6 +7,11 @@ import { useStore } from "@/app/store/store";
 import axios from "axios";
 import { Skeleton } from "@/shared/ui/Skeleton";
 
+interface ISongsInPlaylist {
+    songs: ISong[];
+    playlistTitle: string;
+}
+
 export const PlaylistPage = () => {
     const { id } = useParams();
 
@@ -14,13 +19,16 @@ export const PlaylistPage = () => {
     const setIsLoading = useStore((state) => state.PlaylistPageActions.setIsLoading);
     const songs = useStore((state) => state.PlaylistPage.songs);
     const setSongs = useStore((state) => state.PlaylistPageActions.setSongs);
+    const title = useStore((state) => state.PlaylistPage.playlistTitle);
+    const setTitle = useStore((state) => state.PlaylistPageActions.setPlaylistTitle);
 
     useEffect(() => {
         setIsLoading(true);
         axios
-            .get<ISong[]>(`${__API__}/songsInPlaylist/${id}`, { headers: { Authorization: __JWT__ } })
+            .get<ISongsInPlaylist>(`${__API__}/songsInPlaylist/${id}`, { headers: { Authorization: __JWT__ } })
             .then((response) => {
-                setSongs(response.data);
+                setSongs(response.data.songs);
+                setTitle(response.data.playlistTitle);
                 setIsLoading(false);
             });
     }, []);
@@ -37,7 +45,7 @@ export const PlaylistPage = () => {
     return (
         <div className={classes.PlaylistPage}>
             <div className="container">
-                <PageTitle title="Playlist title" />
+                <PageTitle title={title} />
                 {isLoading ? skeleton : <SongsList songs={songs} />}
             </div>
         </div>
