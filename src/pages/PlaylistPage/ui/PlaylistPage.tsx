@@ -21,6 +21,9 @@ export const PlaylistPage = () => {
     const setSongs = useStore((state) => state.PlaylistPageActions.setSongs);
     const title = useStore((state) => state.PlaylistPage.playlistTitle);
     const setTitle = useStore((state) => state.PlaylistPageActions.setPlaylistTitle);
+    const setCurrentSong = useStore((state) => state.appMusicActions.setCurrentSong);
+    const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
+    const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
 
     useEffect(() => {
         setIsLoading(true);
@@ -43,7 +46,14 @@ export const PlaylistPage = () => {
     );
 
     const handleOnSongClick = (value: ISong) => {
-        console.log(value);
+        setCurrentSong(value);
+
+        // находим индекс песни на которую кликаем в плейлисте
+        const indexOfSongInPlaylist = songs.findIndex((song) => song.id === value.id);
+        // устанавливаем в качестве предыдущих все песни стоящие до выбранной
+        setPrevQueue(songs.slice(0, indexOfSongInPlaylist).map((song) => song.id));
+        // устанавливаем в качестве следующих все песни стоящие после выбранной
+        setNextQueue(songs.slice(indexOfSongInPlaylist + 1).map((song) => song.id));
     };
 
     return (

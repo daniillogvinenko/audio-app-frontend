@@ -15,6 +15,9 @@ export const SearchPage = () => {
     const setSearchPageSongs = useStore((state) => state.searchPageActions.setSearchPageSongs);
     const isLoading = useStore((state) => state.searchPage.isLoading);
     const setIsLoading = useStore((state) => state.searchPageActions.setSearchPageIsLoading);
+    const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
+    const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
+    const setCurrentSong = useStore((state) => state.appMusicActions.setCurrentSong);
 
     const debouncedAxios = useDebounce(() => {
         setIsLoading(true);
@@ -43,7 +46,9 @@ export const SearchPage = () => {
     );
 
     const handleOnSongClick = (value: ISong) => {
-        console.log(value);
+        setNextQueue([]);
+        setPrevQueue([]);
+        setCurrentSong(value);
     };
 
     return (

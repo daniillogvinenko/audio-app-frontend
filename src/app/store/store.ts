@@ -15,8 +15,6 @@ interface AppState {
         isLoading: boolean;
         nextQueue: string[];
         prevQueue: string[];
-        currentPlaylist: string | null;
-        isRandom: boolean;
     };
     searchPage: {
         songs: ISong[];
@@ -46,8 +44,6 @@ interface Action {
         setIsLoading: (value: boolean) => void;
         setNextQueue: (value: string[]) => void;
         setPrevQueue: (value: string[]) => void;
-        setCurrentPlaylist: (value: string) => void;
-        setIsRandom: (value: boolean) => void;
     };
     searchPageActions: {
         setSearchPageSongs: (value: ISong[]) => void;
@@ -89,8 +85,6 @@ export const useStore = create<AppState & Action>()((set) => ({
         isLoading: false,
         nextQueue: ["2", "3", "4", "5", "6", "7", "8"],
         prevQueue: [],
-        currentPlaylist: "",
-        isRandom: false,
     },
     appMusicActions: {
         setCurrentSong: (value) => set((state) => ({ appMusic: { ...state.appMusic, currentSong: value } })),
@@ -101,9 +95,6 @@ export const useStore = create<AppState & Action>()((set) => ({
         setIsLoading: (value) => set((state) => ({ appMusic: { ...state.appMusic, isLoading: value } })),
         setNextQueue: (value: string[]) => set((state) => ({ appMusic: { ...state.appMusic, nextQueue: value } })),
         setPrevQueue: (value: string[]) => set((state) => ({ appMusic: { ...state.appMusic, prevQueue: value } })),
-        setCurrentPlaylist: (value: string) =>
-            set((state) => ({ appMusic: { ...state.appMusic, currentPlaylist: value } })),
-        setIsRandom: (value: boolean) => set((state) => ({ appMusic: { ...state.appMusic, isRandom: value } })),
     },
     // --------
     searchPage: {

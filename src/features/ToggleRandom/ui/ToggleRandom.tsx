@@ -1,7 +1,7 @@
 import { useStore } from "@/app/store/store";
 import randomBlack from "@/shared/assets/images/randomBlack.svg";
-import randomPurple from "@/shared/assets/images/randomPurple.svg";
 import classes from "./ToggleRandom.module.scss";
+import { shuffleArray } from "@/shared/lib/shuffleArray/shuffleArray";
 
 interface ToggleRandomProps {
     disabled?: boolean;
@@ -10,13 +10,20 @@ interface ToggleRandomProps {
 export const ToggleRandom = (props: ToggleRandomProps) => {
     const { disabled } = props;
 
-    const isRandom = useStore((state) => state.appMusic.isRandom);
-    const setIsRandom = useStore((state) => state.appMusicActions.setIsRandom);
+    const nextQueue = useStore((state) => state.appMusic.nextQueue);
+    const prevQueue = useStore((state) => state.appMusic.prevQueue);
+    const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
+    const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
+
+    const handleOnClick = () => {
+        setNextQueue(shuffleArray([...nextQueue, ...prevQueue]));
+        setPrevQueue([]);
+    };
 
     return (
         <div className={classes.ToggleRandom}>
-            <button disabled={disabled} onClick={() => setIsRandom(!isRandom)}>
-                <img src={isRandom ? randomPurple : randomBlack} alt="" />
+            <button disabled={disabled} onClick={handleOnClick}>
+                <img src={randomBlack} alt="" />
             </button>
         </div>
     );
