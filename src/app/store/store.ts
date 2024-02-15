@@ -87,7 +87,7 @@ export const useStore = create<AppState & Action>()((set) => ({
         currentSongTime: 60,
         externalNewSongTime: null,
         isLoading: false,
-        nextQueue: ["4", "3"],
+        nextQueue: ["2", "3", "4", "5", "6", "7", "8"],
         prevQueue: [],
         currentPlaylist: "",
         isRandom: false,
