@@ -55,14 +55,6 @@ export const AppMusic = () => {
             setCurrentSongTime(audioRef.current?.currentTime || 0);
         }, 1000);
 
-        axios
-            .get(`${__API__}/songs/1`, {
-                headers: {
-                    Authorization: __JWT__,
-                },
-            })
-            .then((response) => setCurrentSong(response.data));
-
         return () => {
             clearInterval(interval);
         };

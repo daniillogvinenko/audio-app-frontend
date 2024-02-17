@@ -6,11 +6,11 @@ import prevImg from "@/shared/assets/images/Playback.svg";
 import nextImg from "@/shared/assets/images/Next.svg";
 import playImg from "@/shared/assets/images/Button_Play.svg";
 import pauseImg from "@/shared/assets/images/Button_Pause.svg";
-import axios from "axios";
 import { AppImage } from "@/shared/ui/AppImage";
 import { AppPlayerSkeleton } from "./AppPlayerSkeleton/AppPlayerSkeleton";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { ToggleRandom } from "@/features/ToggleRandom";
+import { authAxios } from "@/shared/api/api";
 
 interface AppPlayerProps {
     className?: string;
@@ -53,19 +53,13 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или следующих песен нету
         if (!isLoading && nextQueue.length) {
             setIsLoading(true);
-            axios
-                .get(`${__API__}/songs/${nextQueue[0]}`, {
-                    headers: {
-                        Authorization: __JWT__,
-                    },
-                })
-                .then((response) => {
-                    setCurrentSong(response.data);
-                    setIsLoading(false);
-                    // удаляем первый элемент из массива nextQueue и добавляем id текущей песни в конец массива prevQueue
-                    setNextQueue(nextQueue.slice(1));
-                    setPrevQueue([...prevQueue, currentSong.id]);
-                });
+            authAxios.get(`/songs/${nextQueue[0]}`).then((response) => {
+                setCurrentSong(response.data);
+                setIsLoading(false);
+                // удаляем первый элемент из массива nextQueue и добавляем id текущей песни в конец массива prevQueue
+                setNextQueue(nextQueue.slice(1));
+                setPrevQueue([...prevQueue, currentSong.id]);
+            });
         }
     };
 
@@ -73,18 +67,12 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
         if (!isLoading && prevQueue.length) {
             setIsLoading(true);
-            axios
-                .get(`${__API__}/songs/${prevQueue[prevQueue.length - 1]}`, {
-                    headers: {
-                        Authorization: __JWT__,
-                    },
-                })
-                .then((response) => {
-                    setCurrentSong(response.data);
-                    setIsLoading(false);
-                    setNextQueue([currentSong.id, ...nextQueue]);
-                    setPrevQueue(prevQueue.slice(0, -1));
-                });
+            authAxios.get(`/songs/${prevQueue[prevQueue.length - 1]}`).then((response) => {
+                setCurrentSong(response.data);
+                setIsLoading(false);
+                setNextQueue([currentSong.id, ...nextQueue]);
+                setPrevQueue(prevQueue.slice(0, -1));
+            });
         }
     };
 

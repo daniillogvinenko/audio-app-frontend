@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { ISong, SongsList } from "@/entities/song";
 import { PageTitle } from "@/shared/ui/PageTitle";
 import { useStore } from "@/app/store/store";
-import axios from "axios";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce/useDebounce";
 import { Skeleton } from "@/shared/ui/Skeleton";
+import { authAxios } from "@/shared/api/api";
 
 export const SearchPage = () => {
     const [inputValue, setInputValue] = useState("");
@@ -21,12 +21,10 @@ export const SearchPage = () => {
 
     const debouncedAxios = useDebounce(() => {
         setIsLoading(true);
-        axios
-            .get<ISong[]>(`${__API__}/songs?q=${inputValue}`, { headers: { Authorization: __JWT__ } })
-            .then((response) => {
-                setSearchPageSongs(response.data);
-                setIsLoading(false);
-            });
+        authAxios.get<ISong[]>(`/songs?q=${inputValue}`).then((response) => {
+            setSearchPageSongs(response.data);
+            setIsLoading(false);
+        });
     }, 1000);
 
     // загрузка песен с сервера

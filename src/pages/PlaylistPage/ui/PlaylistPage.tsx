@@ -4,8 +4,8 @@ import { PageTitle } from "@/shared/ui/PageTitle";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useStore } from "@/app/store/store";
-import axios from "axios";
 import { Skeleton } from "@/shared/ui/Skeleton";
+import { authAxios } from "@/shared/api/api";
 
 interface ISongsInPlaylist {
     songs: ISong[];
@@ -28,13 +28,11 @@ export const PlaylistPage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios
-            .get<ISongsInPlaylist>(`${__API__}/songsInPlaylist/${id}`, { headers: { Authorization: __JWT__ } })
-            .then((response) => {
-                setSongs(response.data.songs);
-                setTitle(response.data.playlistTitle);
-                setIsLoading(false);
-            });
+        authAxios.get<ISongsInPlaylist>(`/songsInPlaylist/${id}`).then((response) => {
+            setSongs(response.data.songs);
+            setTitle(response.data.playlistTitle);
+            setIsLoading(false);
+        });
     }, []);
 
     const skeleton = (

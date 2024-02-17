@@ -3,10 +3,10 @@ import classes from "./MyMusic.module.scss";
 import { PageTitle } from "@/shared/ui/PageTitle";
 import { useEffect } from "react";
 import { useStore } from "@/app/store/store";
-import axios from "axios";
 import { IPlaylist } from "@/entities/playlist";
 import { PlaylistsList } from "@/entities/playlist";
 import { MyMusicSkeleton } from "./MyMusicSkeleton/MyMusicSkeleton";
+import { authAxios } from "@/shared/api/api";
 
 export const MyMusic = () => {
     const playlists = useStore((state) => state.MyMusicPage.playlists);
@@ -17,7 +17,7 @@ export const MyMusic = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get<IPlaylist[]>(`${__API__}/playlists`, { headers: { Authorization: __JWT__ } }).then((response) => {
+        authAxios.get<IPlaylist[]>(`/playlists`).then((response) => {
             setPlaylists(response.data);
             setIsLoading(false);
         });
@@ -25,7 +25,7 @@ export const MyMusic = () => {
 
     return (
         <div className={classNames(classes.MyMusic, {}, [])}>
-            <div className="container">
+            <div className={classes.myMusicContainer}>
                 <PageTitle title="My Playlists" />
                 {isLoading ? <MyMusicSkeleton /> : <PlaylistsList playlists={playlists} />}
             </div>
