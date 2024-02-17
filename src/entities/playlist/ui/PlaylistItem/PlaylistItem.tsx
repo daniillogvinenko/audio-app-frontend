@@ -8,13 +8,14 @@ import { Skeleton } from "@/shared/ui/Skeleton";
 interface PlaylistItemProps {
     playlist: IPlaylist;
     className?: string;
+    isActive: boolean;
 }
 
 export const PlaylistItem = (props: PlaylistItemProps) => {
-    const { playlist, className } = props;
+    const { playlist, className, isActive } = props;
     return (
         <NavLink to={`/playlist/${playlist.id}`}>
-            <div className={classNames(classes.PlaylistItem, {}, [className])}>
+            <div className={classNames(classes.PlaylistItem, { [classes.isActive]: isActive }, [className])}>
                 <AppImage
                     className={classes.img}
                     src={`${__API__}/playlistCovers/${playlist.imgSrc}`}

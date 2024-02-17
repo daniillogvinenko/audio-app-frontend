@@ -53,7 +53,6 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или следующих песен нету
         if (!isLoading && nextQueue.length) {
             setIsLoading(true);
-            setIsPlaying(false);
             axios
                 .get(`${__API__}/songs/${nextQueue[0]}`, {
                     headers: {
@@ -74,7 +73,6 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
         if (!isLoading && prevQueue.length) {
             setIsLoading(true);
-            setIsPlaying(false);
             axios
                 .get(`${__API__}/songs/${prevQueue[prevQueue.length - 1]}`, {
                     headers: {

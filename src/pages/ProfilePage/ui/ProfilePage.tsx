@@ -5,7 +5,9 @@ import classes from "./ProfilePage.module.scss";
 export const ProfilePage = () => {
     return (
         <div className={classNames(classes.ProfilePage, {}, [])}>
-            <PageTitle title="My Profile" />
+            <div className="container">
+                <PageTitle title="My Profile" />
+            </div>
         </div>
     );
 };

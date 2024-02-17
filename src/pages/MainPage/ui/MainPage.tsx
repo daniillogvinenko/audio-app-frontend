@@ -7,8 +7,10 @@ import { PageTitle } from "@/shared/ui/PageTitle";
 export const MainPage = () => {
     return (
         <div className={classNames(classes.MainPage, {}, [])}>
-            <PageTitle title="APP NAME" margin={45} />
-            <AppPlayer className={classes.player} />
+            <div className="container">
+                <PageTitle title="APP NAME" margin={45} />
+                <AppPlayer className={classes.player} />
+            </div>
             <Navigation />
         </div>
     );

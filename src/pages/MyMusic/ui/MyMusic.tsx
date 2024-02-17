@@ -25,8 +25,10 @@ export const MyMusic = () => {
 
     return (
         <div className={classNames(classes.MyMusic, {}, [])}>
-            <PageTitle title="My Playlists" />
-            {isLoading ? <MyMusicSkeleton /> : <PlaylistsList playlists={playlists} />}
+            <div className="container">
+                <PageTitle title="My Playlists" />
+                {isLoading ? <MyMusicSkeleton /> : <PlaylistsList playlists={playlists} />}
+            </div>
         </div>
     );
 };

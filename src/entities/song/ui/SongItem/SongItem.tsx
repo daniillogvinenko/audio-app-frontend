@@ -11,6 +11,10 @@ interface SongItemProps {
     song: ISong;
     className?: string;
     onClick: (value: ISong) => void;
+    // НУЖНО СДЕЛАТЬ РЕФАКТОРИНГ. Этот компонент должен принимать не один колбек onClick, а три разные колбека, т.к. можно выполнить 3 разные действия:
+    // 1. Выбрать песню
+    // 2. Остановить песню (уже выбранную)
+    // 3. Включить песню (уже выбранную)
 }
 
 export const SongItem = (props: SongItemProps) => {
@@ -25,14 +29,12 @@ export const SongItem = (props: SongItemProps) => {
 
     const thisSongIsCurrent = currentSong.id === song.id;
 
+    const icon = thisSongIsCurrent ? (isPlaying ? pauseBtn : playBtnPurple) : playBtn;
+
     return (
         <div className={classNames(classes.SongItem, {}, [className])}>
             <div className={classes.left}>
-                <img
-                    onClick={handleOnClick}
-                    src={thisSongIsCurrent ? (isPlaying ? pauseBtn : playBtnPurple) : playBtn}
-                    alt=""
-                />
+                <img onClick={handleOnClick} src={icon} alt="" />
                 <div>
                     <div className={thisSongIsCurrent ? classes.titlePurple : classes.title}>{song.title}</div>
                     <div className={classes.author}>{song.author}</div>
