@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { useStore } from "../store/store";
 import { Navigate } from "react-router-dom";
+import { LOCALSTORAGE_USER } from "@/shared/const/const";
 
 interface RequireAuthProps {
     children: ReactNode;
@@ -8,9 +8,9 @@ interface RequireAuthProps {
 
 // редирект на /login если пользователь не авторизован
 export const RequireAuth = ({ children }: RequireAuthProps) => {
-    const auth = useStore((state) => state.User.id);
+    const authUserId = localStorage.getItem(LOCALSTORAGE_USER);
 
-    if (!auth) {
+    if (!authUserId) {
         return <Navigate to={"/login"} />;
     }
 

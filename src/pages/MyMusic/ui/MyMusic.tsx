@@ -14,10 +14,11 @@ export const MyMusic = () => {
     const isLoading = useStore((state) => state.MyMusicPage.isLoading);
     // const isLoading = true;
     const setIsLoading = useStore((state) => state.MyMusicPageActions.setIsLoading);
+    const userId = useStore((state) => state.User.id);
 
     useEffect(() => {
         setIsLoading(true);
-        axiosApi.get<IPlaylist[]>(`/playlists`).then((response) => {
+        axiosApi.get<IPlaylist[]>(`/playlists?userId=${userId}`).then((response) => {
             setPlaylists(response.data);
             setIsLoading(false);
         });

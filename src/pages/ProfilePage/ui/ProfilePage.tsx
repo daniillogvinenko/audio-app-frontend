@@ -4,6 +4,7 @@ import classes from "./ProfilePage.module.scss";
 import { useStore } from "@/app/store/store";
 import { Button } from "@/shared/ui/Button";
 import { LOCALSTORAGE_USER } from "@/shared/const/const";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
     const username = useStore((state) => state.User.username);
@@ -14,12 +15,15 @@ export const ProfilePage = () => {
 
     const setIsPlaying = useStore((state) => state.appMusicActions.setIsPlaying);
 
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         setUserId("");
         setUserPlaylists([]);
         setUsername("");
         setIsPlaying(false);
         localStorage.removeItem(LOCALSTORAGE_USER);
+        navigate("/login");
     };
 
     return (
