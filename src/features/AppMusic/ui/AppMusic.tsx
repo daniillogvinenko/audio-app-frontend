@@ -1,6 +1,6 @@
 import { useStore } from "@/app/store/store";
 import { ISong } from "@/entities/song";
-import axios from "axios";
+import { axiosApi } from "@/shared/api/api";
 import { useEffect, useRef } from "react";
 
 export const AppMusic = () => {
@@ -63,7 +63,7 @@ export const AppMusic = () => {
     const handleEnded = () => {
         if (nextQueue.length) {
             setIsLoading(true);
-            axios.get<ISong>(`${__API__}/songs/${nextQueue[0]}`).then((response) => {
+            axiosApi.get<ISong>(`${__API__}/songs/${nextQueue[0]}`).then((response) => {
                 setCurrentSong(response.data);
                 setIsLoading(false);
                 // удаляем первый элемент из массива nextQueue и добавляем id текущей песни в конец массива prevQueue

@@ -9,25 +9,31 @@ export const routerConfig = {
     login: {
         path: "/login",
         element: <LoginPage />,
+        authOnly: false,
     },
     main: {
         path: "/",
         element: <MainPage />,
+        authOnly: true,
     },
     myMusic: {
         path: "/mymusic",
         element: <MyMusic />,
+        authOnly: true,
     },
     playlistPage: {
         path: "/playlist/:id",
         element: <PlaylistPage />,
+        authOnly: true,
     },
     searchPage: {
         path: "/search",
         element: <SearchPage />,
+        authOnly: true,
     },
     profilePage: {
         path: "/profile",
         element: <ProfilePage />,
+        authOnly: true,
     },
 };

@@ -1,2 +1,4 @@
-- AppPlayer buttons position
-- Fetch Playlists
++ appMusic handleEnded fixed
++ removed jwt logic
++ userId to localStorage
++ logout btn

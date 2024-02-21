@@ -10,7 +10,7 @@ import { AppImage } from "@/shared/ui/AppImage";
 import { AppPlayerSkeleton } from "./AppPlayerSkeleton/AppPlayerSkeleton";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { ToggleRandom } from "@/features/ToggleRandom";
-import { authAxios } from "@/shared/api/api";
+import { axiosApi } from "@/shared/api/api";
 
 interface AppPlayerProps {
     className?: string;
@@ -53,7 +53,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или следующих песен нету
         if (!isLoading && nextQueue.length) {
             setIsLoading(true);
-            authAxios.get(`/songs/${nextQueue[0]}`).then((response) => {
+            axiosApi.get(`/songs/${nextQueue[0]}`).then((response) => {
                 setCurrentSong(response.data);
                 setIsLoading(false);
                 // удаляем первый элемент из массива nextQueue и добавляем id текущей песни в конец массива prevQueue
@@ -67,7 +67,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
         // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
         if (!isLoading && prevQueue.length) {
             setIsLoading(true);
-            authAxios.get(`/songs/${prevQueue[prevQueue.length - 1]}`).then((response) => {
+            axiosApi.get(`/songs/${prevQueue[prevQueue.length - 1]}`).then((response) => {
                 setCurrentSong(response.data);
                 setIsLoading(false);
                 setNextQueue([currentSong.id, ...nextQueue]);

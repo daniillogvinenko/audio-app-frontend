@@ -1,1 +1,1 @@
-export const LOCALSTORAGE_JWT = "jwt";
+export const LOCALSTORAGE_USER = "user";

@@ -6,7 +6,7 @@ import { useStore } from "@/app/store/store";
 import { IPlaylist } from "@/entities/playlist";
 import { PlaylistsList } from "@/entities/playlist";
 import { MyMusicSkeleton } from "./MyMusicSkeleton/MyMusicSkeleton";
-import { authAxios } from "@/shared/api/api";
+import { axiosApi } from "@/shared/api/api";
 
 export const MyMusic = () => {
     const playlists = useStore((state) => state.MyMusicPage.playlists);
@@ -17,7 +17,7 @@ export const MyMusic = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        authAxios.get<IPlaylist[]>(`/playlists`).then((response) => {
+        axiosApi.get<IPlaylist[]>(`/playlists`).then((response) => {
             setPlaylists(response.data);
             setIsLoading(false);
         });

@@ -30,6 +30,11 @@ interface AppState {
         isLoading: boolean;
         playlistTitle: string;
     };
+    User: {
+        id: string;
+        username: string;
+        playlists: string[];
+    };
 }
 
 interface Action {
@@ -59,6 +64,11 @@ interface Action {
         setSongs: (value: ISong[]) => void;
         setIsLoading: (value: boolean) => void;
         setPlaylistTitle: (value: string) => void;
+    };
+    UserActions: {
+        setId: (value: string) => void;
+        setUsername: (value: string) => void;
+        setPlaylists: (value: string[]) => void;
     };
 }
 
@@ -131,5 +141,16 @@ export const useStore = create<AppState & Action>()((set) => ({
         setSongs: (value) => set((state) => ({ PlaylistPage: { ...state.PlaylistPage, songs: value } })),
         setPlaylistTitle: (value: string) =>
             set((state) => ({ PlaylistPage: { ...state.PlaylistPage, playlistTitle: value } })),
+    },
+    // -------------
+    User: {
+        id: "",
+        username: "",
+        playlists: [],
+    },
+    UserActions: {
+        setId: (value: string) => set((state) => ({ User: { ...state.User, id: value } })),
+        setUsername: (value: string) => set((state) => ({ User: { ...state.User, username: value } })),
+        setPlaylists: (value: string[]) => set((state) => ({ User: { ...state.User, playlists: value } })),
     },
 }));

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useStore } from "@/app/store/store";
 import { Skeleton } from "@/shared/ui/Skeleton";
-import { authAxios } from "@/shared/api/api";
+import { axiosApi } from "@/shared/api/api";
 
 interface ISongsInPlaylist {
     songs: ISong[];
@@ -28,7 +28,7 @@ export const PlaylistPage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        authAxios.get<ISongsInPlaylist>(`/songsInPlaylist/${id}`).then((response) => {
+        axiosApi.get<ISongsInPlaylist>(`/songsInPlaylist/${id}`).then((response) => {
             setSongs(response.data.songs);
             setTitle(response.data.playlistTitle);
             setIsLoading(false);

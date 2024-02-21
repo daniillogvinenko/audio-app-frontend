@@ -3,9 +3,9 @@ import classes from "./SignInForm.module.scss";
 import { classNames } from "@/shared/lib/classNames/classNames";
 import { useStore } from "@/app/store/store";
 import { Button } from "@/shared/ui/Button";
-import axios from "axios";
-import { LOCALSTORAGE_JWT } from "@/shared/const/const";
 import { useNavigate } from "react-router-dom";
+import { axiosApi } from "@/shared/api/api";
+import { LOCALSTORAGE_USER } from "@/shared/const/const";
 
 interface SignInFormProps {
     className?: string;
@@ -20,16 +20,27 @@ export const SignInForm = (props: SignInFormProps) => {
     const setUsernameValue = useStore((state) => state.loginPageActions.setUsernameInput);
     const setPasswordValue = useStore((state) => state.loginPageActions.setPasswordInput);
 
+    const setUserId = useStore((state) => state.UserActions.setId);
+    const setUserPlaylists = useStore((state) => state.UserActions.setPlaylists);
+    const setUsername = useStore((state) => state.UserActions.setUsername);
+
     const navigate = useNavigate();
 
     const handleSendForm = () => {
-        axios
-            .post<{ token: string }>(`${__API__}/login`, { username: usernameValue, password: passwordValue })
+        // делаем запрос на /login, чтобы получить токен
+        axiosApi
+            .post<{ id: string; playlists: string[]; username: string }>("/login", {
+                username: usernameValue,
+                password: passwordValue,
+            })
             .then((response) => {
-                if (response.data.token) {
-                    localStorage.setItem(LOCALSTORAGE_JWT, response.data.token);
-                    navigate("/");
-                }
+                console.log(response.data);
+                const { id, playlists, username } = response.data;
+                setUserId(id);
+                setUserPlaylists(playlists);
+                setUsername(username);
+                localStorage.setItem(LOCALSTORAGE_USER, id);
+                navigate("/");
             });
     };
 

@@ -6,7 +6,7 @@ import { PageTitle } from "@/shared/ui/PageTitle";
 import { useStore } from "@/app/store/store";
 import { useDebounce } from "@/shared/lib/hooks/useDebounce/useDebounce";
 import { Skeleton } from "@/shared/ui/Skeleton";
-import { authAxios } from "@/shared/api/api";
+import { axiosApi } from "@/shared/api/api";
 
 export const SearchPage = () => {
     const [inputValue, setInputValue] = useState("");
@@ -21,7 +21,7 @@ export const SearchPage = () => {
 
     const debouncedAxios = useDebounce(() => {
         setIsLoading(true);
-        authAxios.get<ISong[]>(`/songs?q=${inputValue}`).then((response) => {
+        axiosApi.get<ISong[]>(`/songs?q=${inputValue}`).then((response) => {
             setSearchPageSongs(response.data);
             setIsLoading(false);
         });
