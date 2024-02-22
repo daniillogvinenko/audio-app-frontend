@@ -41,6 +41,9 @@ export const SignInForm = (props: SignInFormProps) => {
                 setUsername(username);
                 localStorage.setItem(LOCALSTORAGE_USER, id);
                 navigate("/");
+            })
+            .catch((e: { message: string }) => {
+                alert(e.message);
             });
     };
 

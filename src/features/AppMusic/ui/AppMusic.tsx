@@ -1,6 +1,7 @@
 import { useStore } from "@/app/store/store";
 import { ISong } from "@/entities/song";
 import { axiosApi } from "@/shared/api/api";
+import { LOCALSTORAGE_USER } from "@/shared/const/const";
 import { useEffect, useRef } from "react";
 
 export const AppMusic = () => {
@@ -18,6 +19,10 @@ export const AppMusic = () => {
     const prevQueue = useStore((state) => state.appMusic.prevQueue);
     const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
     const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
+    const userId = useStore((state) => state.User.id);
+    const setUserId = useStore((state) => state.UserActions.setId);
+    const setUserPlaylists = useStore((state) => state.UserActions.setPlaylists);
+    const setUsername = useStore((state) => state.UserActions.setUsername);
 
     // реагирует на изменения isPlaying и взаимодействует с тегом <audio>
     useEffect(() => {
@@ -59,6 +64,21 @@ export const AppMusic = () => {
             clearInterval(interval);
         };
     }, []);
+
+    useEffect(() => {
+        if (!userId && localStorage.getItem(LOCALSTORAGE_USER)) {
+            axiosApi
+                .get<{ id: string; username: string; playlists: string[] }[]>(
+                    `/users?id=${localStorage.getItem(LOCALSTORAGE_USER)}`
+                )
+                .then((response) => {
+                    const { id, playlists, username } = response.data[0];
+                    setUserId(id);
+                    setUserPlaylists(playlists);
+                    setUsername(username);
+                });
+        }
+    }, [userId, setUserId, setUserPlaylists, setUsername]);
 
     const handleEnded = () => {
         if (nextQueue.length) {
