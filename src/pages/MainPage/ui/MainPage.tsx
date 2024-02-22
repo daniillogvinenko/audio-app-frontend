@@ -8,7 +8,7 @@ export const MainPage = () => {
     return (
         <div className={classNames(classes.MainPage, {}, [])}>
             <div className="container">
-                <PageTitle title="APP NAME" margin={45} />
+                <PageTitle title="SoundWave" margin={45} />
                 <AppPlayer className={classes.player} />
             </div>
             <Navigation />
