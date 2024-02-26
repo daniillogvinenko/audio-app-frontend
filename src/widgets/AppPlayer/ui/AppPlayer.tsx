@@ -64,17 +64,24 @@ export const AppPlayer = (props: AppPlayerProps) => {
     };
 
     const onPrev = () => {
-        // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
-        if (!isLoading && prevQueue.length) {
-            setIsLoading(true);
-            axiosApi.get(`/songs/${prevQueue[prevQueue.length - 1]}`).then((response) => {
-                setCurrentSong(response.data);
-                setIsLoading(false);
-                setNextQueue([currentSong.id, ...nextQueue]);
-                setPrevQueue(prevQueue.slice(0, -1));
-            });
+        if (currentSongTime > 6) {
+            setExternalNewSongTime(0);
+        } else {
+            // кнопка не будет работать, если идет загрузка песни или предыдущих песен нету
+            if (!isLoading && prevQueue.length) {
+                setIsLoading(true);
+                axiosApi.get(`/songs/${prevQueue[prevQueue.length - 1]}`).then((response) => {
+                    setCurrentSong(response.data);
+                    setIsLoading(false);
+                    setNextQueue([currentSong.id, ...nextQueue]);
+                    setPrevQueue(prevQueue.slice(0, -1));
+                });
+            }
         }
     };
+
+    const prevDisabled = isLoading || (!prevQueue.length && !(currentSongTime > 6));
+    const nextDesabled = isLoading || !nextQueue.length;
 
     return (
         <div className={classNames(classes.AppPlayer, {}, [className])}>
@@ -88,25 +95,27 @@ export const AppPlayer = (props: AppPlayerProps) => {
                         fallback={<Skeleton className={classes.albumCover} height={243} width={243} />}
                     />
 
-                    <SongScale
-                        onChange={onChange}
-                        value={(currentTime / currentSong.duration) * 100}
-                        currentTime={currentSongTime}
-                        duration={currentSong.duration}
-                        className={classes.scale}
-                    />
-                    <div className={classes.songTitle}>{currentSong.title}</div>
-                    <div className={classes.songAuthor}>{currentSong.author}</div>
+                    <div className={classes.songInfo}>
+                        <SongScale
+                            onChange={onChange}
+                            value={(currentTime / currentSong.duration) * 100}
+                            currentTime={currentSongTime}
+                            duration={currentSong.duration}
+                            className={classes.scale}
+                        />
+                        <div className={classes.songTitle}>{currentSong.title}</div>
+                        <div className={classes.songAuthor}>{currentSong.author}</div>
+                    </div>
                 </>
             )}
             <div className={classes.controls}>
-                <button disabled={isLoading || !prevQueue.length} onClick={onPrev}>
+                <button disabled={prevDisabled} onClick={onPrev}>
                     <img src={prevImg} alt="" />
                 </button>
                 <button disabled={isLoading} onClick={onPlayPause}>
                     {<img src={isPlaying ? pauseImg : playImg} alt="" />}
                 </button>
-                <button disabled={isLoading || !nextQueue.length} onClick={onNext}>
+                <button disabled={nextDesabled} onClick={onNext}>
                     <img src={nextImg} alt="" />
                 </button>
             </div>
