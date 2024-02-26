@@ -1,1 +1,1 @@
-export { ConsoleLogState } from "./ConsoleLogState";
+export { ConsoleLogState } from "./ui/ConsoleLogState";

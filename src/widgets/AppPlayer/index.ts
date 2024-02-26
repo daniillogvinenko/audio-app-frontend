@@ -1,1 +1,1 @@
-export { AppPlayer } from "./ui/AppPlayer";
+export { AppPlayer } from "./ui/AppPlayer/AppPlayer";

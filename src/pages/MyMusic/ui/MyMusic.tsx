@@ -12,7 +12,6 @@ export const MyMusic = () => {
     const playlists = useStore((state) => state.MyMusicPage.playlists);
     const setPlaylists = useStore((state) => state.MyMusicPageActions.setMyMusicPagePlaylists);
     const isLoading = useStore((state) => state.MyMusicPage.isLoading);
-    // const isLoading = true;
     const setIsLoading = useStore((state) => state.MyMusicPageActions.setIsLoading);
     const userId = useStore((state) => state.User.id);
 

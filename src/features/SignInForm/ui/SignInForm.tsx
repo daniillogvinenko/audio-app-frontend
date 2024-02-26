@@ -34,7 +34,6 @@ export const SignInForm = (props: SignInFormProps) => {
                 password: passwordValue,
             })
             .then((response) => {
-                console.log(response.data);
                 const { id, playlists, username } = response.data;
                 setUserId(id);
                 setUserPlaylists(playlists);
@@ -51,12 +50,14 @@ export const SignInForm = (props: SignInFormProps) => {
         <div className={classNames(classes.SignInForm, {}, [className])}>
             <div className={classes.title}>Sign In</div>
             <Input
+                full
                 placeholder="Enter your username"
                 value={usernameValue}
                 onChange={setUsernameValue}
                 className={classes.usernameInput}
             />
             <Input
+                full
                 type="password"
                 placeholder="Enter your password"
                 value={passwordValue}

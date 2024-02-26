@@ -1,5 +1,5 @@
 import { classNames } from "@/shared/lib/classNames/classNames";
-import classes from "./SongScale.module.scss";
+import classes from "./ProgressBar.module.scss";
 import { useMemo } from "react";
 import { secondsToTime } from "@/shared/lib/formatTime/formatTime";
 
@@ -11,7 +11,7 @@ interface SongScaleProps {
     currentTime: number;
 }
 
-export const SongScale = (props: SongScaleProps) => {
+export const ProgressBar = (props: SongScaleProps) => {
     const { className, onChange, value, currentTime, duration } = props;
 
     const currentFormatted = secondsToTime(currentTime);

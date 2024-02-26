@@ -23,13 +23,10 @@ export const SongItem = (props: SongItemProps) => {
 
     const handleOnClick = () => {
         if (!isPlaying && song.id === currentSong.id) {
-            console.log("play");
             play();
         } else if (song.id !== currentSong.id) {
-            console.log("play", song.title);
             playNew(song);
         } else if (isPlaying && song.id === currentSong.id) {
-            console.log("pause");
             pause();
         }
     };

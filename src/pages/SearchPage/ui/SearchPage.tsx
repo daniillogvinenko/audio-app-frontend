@@ -69,7 +69,6 @@ export const SearchPage = () => {
                     full
                     className={classes.input}
                 />
-                {/* если строка поиска пустая, то ничего не будет отображено */}
                 {isLoading ? (
                     skeleton
                 ) : (
@@ -77,6 +76,7 @@ export const SearchPage = () => {
                         play={handlePlay}
                         pause={handlePause}
                         playNew={handleOnSongClick}
+                        // если строка поиска пустая, то ничего не будет отображено
                         songs={inputValue ? songs : []}
                     />
                 )}
