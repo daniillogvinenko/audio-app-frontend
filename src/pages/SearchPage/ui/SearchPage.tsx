@@ -18,6 +18,7 @@ export const SearchPage = () => {
     const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
     const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
     const setCurrentSong = useStore((state) => state.appMusicActions.setCurrentSong);
+    const setIsPlaying = useStore((state) => state.appMusicActions.setIsPlaying);
 
     const debouncedAxios = useDebounce(() => {
         setIsLoading(true);
@@ -49,6 +50,14 @@ export const SearchPage = () => {
         setCurrentSong(value);
     };
 
+    const handlePlay = () => {
+        setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
+    };
+
     return (
         <div className={classes.SearchPage}>
             <div className="container">
@@ -61,7 +70,16 @@ export const SearchPage = () => {
                     className={classes.input}
                 />
                 {/* если строка поиска пустая, то ничего не будет отображено */}
-                {isLoading ? skeleton : <SongsList onClick={handleOnSongClick} songs={inputValue ? songs : []} />}
+                {isLoading ? (
+                    skeleton
+                ) : (
+                    <SongsList
+                        play={handlePlay}
+                        pause={handlePause}
+                        playNew={handleOnSongClick}
+                        songs={inputValue ? songs : []}
+                    />
+                )}
             </div>
         </div>
     );

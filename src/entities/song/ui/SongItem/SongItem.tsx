@@ -10,7 +10,9 @@ import { useStore } from "@/app/store/store";
 interface SongItemProps {
     song: ISong;
     className?: string;
-    onClick: (value: ISong) => void;
+    play: () => void;
+    playNew: (value: ISong) => void;
+    pause: () => void;
     // НУЖНО СДЕЛАТЬ РЕФАКТОРИНГ. Этот компонент должен принимать не один колбек onClick, а три разные колбека, т.к. можно выполнить 3 разные действия:
     // 1. Выбрать песню
     // 2. Остановить песню (уже выбранную)
@@ -18,13 +20,22 @@ interface SongItemProps {
 }
 
 export const SongItem = (props: SongItemProps) => {
-    const { song, className, onClick } = props;
+    const { song, className, pause, play, playNew } = props;
 
     const isPlaying = useStore((state) => state.appMusic.isPlaying);
     const currentSong = useStore((state) => state.appMusic.currentSong);
 
     const handleOnClick = () => {
-        onClick(song);
+        if (!isPlaying && song.id === currentSong.id) {
+            console.log("play");
+            play();
+        } else if (song.id !== currentSong.id) {
+            console.log("play", song.title);
+            playNew(song);
+        } else if (isPlaying && song.id === currentSong.id) {
+            console.log("pause");
+            pause();
+        }
     };
 
     const thisSongIsCurrent = currentSong.id === song.id;

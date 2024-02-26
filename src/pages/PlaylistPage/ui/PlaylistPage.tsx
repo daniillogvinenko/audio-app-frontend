@@ -25,6 +25,7 @@ export const PlaylistPage = () => {
     const setNextQueue = useStore((state) => state.appMusicActions.setNextQueue);
     const setPrevQueue = useStore((state) => state.appMusicActions.setPrevQueue);
     const setCurrentPlaylistTitle = useStore((state) => state.appMusicActions.setCurrentPlaylistTitle);
+    const setIsPlaying = useStore((state) => state.appMusicActions.setIsPlaying);
 
     useEffect(() => {
         setIsLoading(true);
@@ -55,13 +56,27 @@ export const PlaylistPage = () => {
         setNextQueue(songs.slice(indexOfSongInPlaylist + 1).map((song) => song.id));
         // устанавливаем в качестве текущего плейлиста плейлист в котором была выбрана песня
         setCurrentPlaylistTitle(title);
+
+        setIsPlaying(true);
+    };
+
+    const handlePlay = () => {
+        setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
     };
 
     return (
         <div className={classes.PlaylistPage}>
             <div className="container">
                 <PageTitle title={title} />
-                {isLoading ? skeleton : <SongsList onClick={handleOnSongClick} songs={songs} />}
+                {isLoading ? (
+                    skeleton
+                ) : (
+                    <SongsList play={handlePlay} pause={handlePause} playNew={handleOnSongClick} songs={songs} />
+                )}
             </div>
         </div>
     );
