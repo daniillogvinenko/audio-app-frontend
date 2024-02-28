@@ -2,7 +2,7 @@ export interface ISong {
     id: string;
     title: string;
     author: string;
-    duration: number;
+    duration: string;
     source: string;
     img: string;
 }

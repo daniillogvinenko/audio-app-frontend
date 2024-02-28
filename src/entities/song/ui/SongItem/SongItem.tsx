@@ -3,7 +3,6 @@ import classes from "./SongItem.module.scss";
 import playBtn from "@/shared/assets/images/Playlist_play_button.png";
 import playBtnPurple from "@/shared/assets/images/Button_Play_purple.png";
 import pauseBtn from "@/shared/assets/images/Playlist_pause_button.png";
-import { secondsToTime } from "@/shared/lib/formatTime/formatTime";
 import { ISong } from "../..";
 import { useStore } from "@/app/store/store";
 
@@ -44,7 +43,7 @@ export const SongItem = (props: SongItemProps) => {
                     <div className={classes.author}>{song.author}</div>
                 </div>
             </div>
-            <div className={classes.right}>{secondsToTime(song.duration)}</div>
+            <div className={classes.right}>{song.duration}</div>
         </div>
     );
 };
