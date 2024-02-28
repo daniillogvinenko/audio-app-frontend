@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export type Mods = Record<string, string | boolean | undefined>;
 
 // эта функция нужна чтобы вешать какие-то классы, особенно если они идут по какому-либо условию
