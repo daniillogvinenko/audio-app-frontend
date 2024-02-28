@@ -11,6 +11,7 @@ import { AppPlayerSkeleton } from "../AppPlayerSkeleton/AppPlayerSkeleton";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { ToggleRandom } from "@/features/ToggleRandom";
 import { axiosApi } from "@/shared/api/api";
+import { timeToSeconds } from "@/shared/lib/formatTime/formatTime";
 
 interface AppPlayerProps {
     className?: string;
@@ -46,7 +47,7 @@ export const AppPlayer = (props: AppPlayerProps) => {
     // дает компоненту AppMusic знать о том, что надо перемотать песню на установленное значение
     const onChange = (value: number) => {
         // перевод из процентов в секунды
-        setExternalNewSongTime((currentSong.duration * value) / 100);
+        setExternalNewSongTime((timeToSeconds(currentSong.duration) * value) / 100);
     };
 
     const onNext = () => {
@@ -100,9 +101,9 @@ export const AppPlayer = (props: AppPlayerProps) => {
                         <ProgressBar
                             onChange={onChange}
                             // перевод в проценты
-                            value={(currentTime / currentSong.duration) * 100}
+                            value={(currentTime / timeToSeconds(currentSong.duration)) * 100}
                             currentTime={currentSongTime}
-                            duration={currentSong.duration}
+                            duration={timeToSeconds(currentSong.duration)}
                             className={classes.scale}
                         />
                         <div className={classes.songTitle}>{currentSong.title}</div>

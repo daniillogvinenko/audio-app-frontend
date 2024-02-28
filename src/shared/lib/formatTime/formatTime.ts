@@ -15,3 +15,9 @@ export const secondsToTime = (seconds: number | undefined): string => {
 
     return minutesRes + ":" + res;
 };
+
+export const timeToSeconds = (time: string) => {
+    const [minutes, seconds] = time.split(":");
+
+    return +minutes * 60 + +seconds;
+};

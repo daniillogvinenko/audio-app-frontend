@@ -16,7 +16,7 @@ export const useStore = create<AppState & Action>()((set) => ({
             title: "Day 'N' Nite",
             author: "Kid Cudi",
             source: "2.mp3",
-            duration: 222,
+            duration: "3:42",
             id: "2",
             img: "2.jpg",
         },
