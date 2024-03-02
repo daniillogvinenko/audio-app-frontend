@@ -1,7 +1,7 @@
 .SongItem {
     height: 72px;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--input-bg);
     padding: 12px;
     display: flex;
     justify-content: space-between;
@@ -27,11 +27,11 @@
 }
 
 .author {
-    color: #828282;
+    color: var(--secondary-text);
     font-weight: 500;
     font-size: 12px;
 }
 
 .right {
-    color: #828282;
+    color: var(--secondary-text);
 }

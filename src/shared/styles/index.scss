@@ -1,9 +1,12 @@
 @import "./variables/global";
 @import "./reset";
+@import "./themes/light.scss";
+@import "./themes/dark.scss";
 
 body {
   font-family: 'Poppins', 'Arial';
   background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .container {

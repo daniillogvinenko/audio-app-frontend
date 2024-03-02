@@ -5,6 +5,7 @@ import { useStore } from "@/app/store/store";
 import { Button } from "@/shared/ui/Button";
 import { LOCALSTORAGE_USER } from "@/shared/const/const";
 import { useNavigate } from "react-router-dom";
+import { ThemeSwitcher } from "@/features/ThemeSwitcher";
 
 export const ProfilePage = () => {
     const username = useStore((state) => state.User.username);
@@ -31,6 +32,7 @@ export const ProfilePage = () => {
             <div className="container">
                 <PageTitle title="My Profile" />
                 <div className={classes.username}>{username}</div>
+                <ThemeSwitcher />
                 <Button onClick={handleLogout} className={classes.logoutBtn}>
                     Log Out
                 </Button>
