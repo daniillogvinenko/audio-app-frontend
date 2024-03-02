@@ -45,3 +45,8 @@
 button {
     background-color: transparent;
 }
+
+.nextBtn svg,
+.prevBtn svg {
+    fill: var(--text-color)
+}

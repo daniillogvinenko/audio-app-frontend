@@ -4,4 +4,9 @@
     align-items: start;
     height: 100px;
     margin-top: 20px;
+
+    svg {
+        stroke: var(--text-color);
+        fill: var(--text-color);
+    }
 }
