@@ -18,10 +18,12 @@ export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
             body.className = "app_dark_theme";
             localStorage.setItem(LOCALSTORAGE_THEME, "dark");
             setCurrentTheme("dark");
+            document.querySelector("meta[name='theme-color']")?.setAttribute("content", "#0e0e0e");
         } else {
             body.className = "app_light_theme";
             localStorage.setItem(LOCALSTORAGE_THEME, "light");
             setCurrentTheme("light");
+            document.querySelector("meta[name='theme-color']")?.setAttribute("content", "#F0F0F0");
         }
     };
 
