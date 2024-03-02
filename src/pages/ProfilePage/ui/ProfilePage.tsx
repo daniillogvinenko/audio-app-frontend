@@ -32,7 +32,7 @@ export const ProfilePage = () => {
             <div className="container">
                 <PageTitle title="My Profile" />
                 <div className={classes.username}>{username}</div>
-                <ThemeSwitcher />
+                <ThemeSwitcher className={classes.switcher} />
                 <Button onClick={handleLogout} className={classes.logoutBtn}>
                     Log Out
                 </Button>
