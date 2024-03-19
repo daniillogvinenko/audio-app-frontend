@@ -14,7 +14,7 @@ export const PlaylistsList = (props: MyPlaylistsListProps) => {
     const currentPlaylistTitle = useStore((state) => state.appMusic.currentPlaylistTitle);
 
     return (
-        <div className={classNames(classes.MyPlaylistsList, {}, [className])}>
+        <div className={classNames(classes.PlaylistsList, {}, [className])}>
             {playlists.map((playlist) => (
                 <PlaylistItem
                     isActive={currentPlaylistTitle === playlist.title}
