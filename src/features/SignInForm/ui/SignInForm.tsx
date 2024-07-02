@@ -64,6 +64,8 @@ export const SignInForm = (props: SignInFormProps) => {
                 onChange={setPasswordValue}
                 className={classes.usernameInput}
             />
+            <p>*Вы можете авторизоваться используя следующие данные: логин - user1 пароль - user1</p>
+
             <Button onClick={handleSendForm} className={classes.button}>
                 Sign In
             </Button>
